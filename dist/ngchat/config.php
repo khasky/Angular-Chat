@@ -1,0 +1,9 @@
+<?php
+	$CFG_CHAT_FILE_PATH = 'history.json';
+	$CFG_STATUS_FILE_PATH = 'status.json';
+	$CFG_MAX_HISTORY_MESSAGES = 50;
+	$CFG_MAX_ONLINE_TIME = 15; // minutes
+	$CFG_ADMIN_USER_IDS = array(
+		'75061645373651027041065373651024128024'
+	);
+?>

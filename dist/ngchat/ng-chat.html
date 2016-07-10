@@ -1,0 +1,85 @@
+<div class="ng-chat-wrapper">
+
+	<div class="ng-chat-history">
+		<div class="ng-chat-item" ng-repeat="x in history">
+			<div class="ng-chat-message-details">
+				<span class="ng-chat-author" 
+					ng-click="quote(x.userId, x.user)" 
+					ng-class="{'self': x.userId === guid(), 'online': isUserOnline(x.userId), 'toggle': x.toggle}" 
+					ng-style="{background: getUserBg(x), color: getUserColor(x)}"
+					title="{{x.userId === guid() ? 'You' : (isUserOnline(x.userId) ? 'Online' : 'Offline')}}">{{x.user}}</span>
+				
+				<span class="ng-chat-date">{{x.date | date: dateFormat}}</span>
+				
+				<span class="ng-chat-user-actions">
+					<a href="javascript:void(0)" ng-click="toggleDetails(x)" title="Show details" ng-class="{'active': x.toggle}">[i]</a>
+				</span>
+				
+				<span class="ng-chat-admin-actions" ng-if="isUserAdmin()">
+					<a href="javascript:void(0)" ng-click="adminDelete(x)" title="Delete message">[x]</a>
+					<a href="javascript:void(0)" ng-click="adminEdit(x)" title="Edit message">[e]</a>
+				</span>
+				
+				<span class="ng-chat-messageid" ng-show="x.toggle">#{{x.messageId}}</span>
+			</div>
+
+			<div class="ng-chat-message" ng-show="!x.isEditing">
+				<span ng-bind-html="getHtmContent(x.message)"></span>
+			</div>
+			
+			<div class="ng-chat-editor" ng-show="x.isEditing">
+				<textarea ng-model="x.edited" ng-blur="tempEditFocusOut(x)" rows="3" cols="50" placeholder="Message" id="idedit" ng-chat-input-focus></textarea>
+			</div>
+		</div>
+		
+		<div class="ng-chat-item" ng-show="!initialized">
+			Initializing
+		</div>
+		
+		<div class="ng-chat-item" ng-show="initialized && !refreshing && !history.length">
+			No messages
+		</div>
+		
+	</div>
+	
+	<div class="ng-chat-resizer">
+		<div class="ng-chat-line"></div>
+	</div>
+	
+	<div class="ng-chat-reply">
+	
+		<div class="ng-chat-toolbar row">
+			<div class="col-xs-35">
+				<input ng-keypress="nameKeyPress($event)" ng-model="name" type="text" placeholder="Name">
+			</div>
+			<div class="col-xs-30 row">
+				<div class="col-xs-40">
+					<input ng-model="refreshTime" type="number" min="5" max="60" ng-keyup="refreshTimeChanged()" title="Refresh delay">
+				</div>
+				<div class="col-xs-60">
+					<a ng-click="directRefresh()" href="javascript:void(0)" title="Refresh" ng-class="{'active': refreshing}">@</a>
+					<a ng-click="smilesOn=!smilesOn" href="javascript:void(0)" title="Smiles" ng-class="{'active': smilesOn}">:-)</a>
+					<span class="ng-chat-message-len" ng-class="{'red': reply.length == 255}" ng-show="reply.length > 0" title="Message length">{{reply.length}}</span>
+				</div>
+			</div>
+			<div class="col-xs-35">
+				<span ng-show="refreshing">Refreshing...</span>
+			</div>
+		</div>
+		
+		<div ng-if="smilies && smilies.length" ng-show="smilesOn" class="ng-chat-smilies">
+			<img ng-repeat="s in smilies" ng-src="{{getSmileUrl(s.code)}}" ng-click="insertText(s.emotions[0])" title="{{s.emotions[0]}}" />
+		</div>
+		
+		<div class="ng-chat-text">
+			<textarea ng-keypress="replyKeyPress($event)" ng-model="reply" rows="4" cols="50" placeholder="Message" id="idreply"></textarea>
+		</div>
+		
+		<div class="ng-chat-send">
+			<button type="button" ng-disabled="!reply.trim().length" ng-click="clear()">Clear</button>
+			<button type="button" ng-disabled="!name.length || !reply.trim().length" ng-click="send()">Reply</button>
+		</div>
+		
+	</div>
+	
+</div>

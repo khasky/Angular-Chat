@@ -1,0 +1,278 @@
+/* Lessophy by Khasky (c) 2016
+ */
+/* Web fonts
+ * Usage: .font-face('YourFontName', @yourFontPath, @yourFontWeight, @yourFontStyle);
+ */
+/* Chrome 10.0 (4.0 -webkit-), IE 8.0, Mozilla 29.0 (2.0 -moz-), Safari 5.1 (3.2 -webkit-), Opera 9.5
+ * box-sizing: content-box|border-box|initial|inherit;
+ */
+/* Chrome 4.0, IE 9.0, Mozilla 4.0, Safari 3.0, Opera 10.5
+ * background-clip: border-box|padding-box|content-box|initial|inherit;
+ */
+/* Chrome 10.0 (4.0 -webkit-), IE 9.0, Mozilla 4.0 (3.5 -moz-), Safari 5.1 (3.1 -webkit-), Opera 10.5
+ * box-shadow: none|h-shadow v-shadow blur spread color |inset|initial|inherit;
+ */
+/* Chrome 5.0 (4.0 -webkit-), IE 9.0, Mozilla 4.0 (3.0 -moz-), Safari 5.0 (3.1 -webkit-), Opera 10.5
+ * border-radius: 1-4 length|% / 1-4 length|%|initial|inherit;
+ */
+/* Chrome 5.0 (4.0 -webkit-), IE 9.0, Mozilla 4.0 (3.0 -moz-), Safari 5.0 (3.1 -webkit-), Opera 10.5
+ * border-bottom-left-radius: length|% [length|%]|initial|inherit;
+ */
+/* Chrome 4.0, IE 9.0 (IE 8.0 filter), Mozilla 2.0, Safari 3.1, Opera 9.0
+ * opacity: number|initial|inherit;
+ */
+/* Chrome 4.0 (1.0 -webkit-), IE 9.0, Mozilla 4.0 (3.6 -moz-), Safari 4.1 (3.0 -webkit-), Opera 10.5 (10.0 -o-)
+ * background-size: auto|length|cover|contain|initial|inherit;
+ */
+/* Chrome 26.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (4.0 -moz-), Safari 6.1 (3.1 -webkit-), Opera 12.1 (10.5 -o-)
+ * transition: property duration timing-function delay|initial|inherit;
+ */
+/* Chrome 26.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (4.0 -moz-), Safari 6.1 (3.1 -webkit-), Opera 12.1 (10.5 -o-)
+ * transition-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit;
+ */
+/* Chrome 26.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (4.0 -moz-), Safari 6.1 (3.1 -webkit-), Opera 12.1 (10.5 -o-)
+ * transition-duration: time|initial|inherit;
+ */
+/* Chrome 26.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (4.0 -moz-), Safari 6.1 (3.1 -webkit-), Opera 12.1 (10.5 -o-)
+ * transition-delay: time|initial|inherit;
+ */
+/* Chrome 26.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (4.0 -moz-), Safari 6.1 (3.1 -webkit-), Opera 12.1 (10.5 -o-)
+ * transition-property: none|all|property|initial|inherit;
+ */
+/* Chrome 43.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation: name duration timing-function delay iteration-count direction fill-mode play-state;
+ */
+/* Chrome 43.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation-name: keyframename|none|initial|inherit;
+ */
+/* Chrome 43.0 (3.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit;
+ */
+/* Chrome 43.0 (3.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation-duration: time|initial|inherit;
+ */
+/* Chrome 43.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation-delay: time|initial|inherit;
+ */
+/* Chrome 43.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation-direction: normal|reverse|alternate|alternate-reverse|initial|inherit;
+ */
+/* Chrome 4.0 -webkit-, IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 4.0 -webkit-, Opera 15.0 -webkit- (12.0 -o-)
+ * animation-fill-mode: none|forwards|backwards|both|initial|inherit;
+ */
+/* Chrome 43.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation-iteration-count: number|infinite|initial|inherit;
+ */
+/* Chrome 43.0 (4.0 -webkit-), IE 10.0, Mozilla 16.0 (5.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 30.0 (15.0 -webkit- 12.0 -o-)
+ * animation-play-state: paused|running|initial|inherit;
+ */
+/* (2D) Chrome 36.0 (4.0 -webkit-), IE 10.0 (9.0 -ms-), Mozilla 16.0 (3.5 -moz-), Safari 9.0 (3.2 -webkit-), Opera 23.0 (15.0 -webkit- 10.5 -o-)
+ * (3D) Chrome 36.0 (12.0 -webkit-), IE 12.0, Mozilla 10.0, Safari 16.0 (10.0 -moz-), Opera 9.0 (4.0 -webkit-)
+ * transform: none|transform-functions|initial|inherit;
+ */
+/* Chrome 36.0 (4.0 -webkit-), IE 10.0 (9.0 -ms-), Mozilla 16.0 (3.5 -moz-), Safari 9.0 (3.2 -webkit-), Opera 23.0 (15.0 -webkit- 10.5 -o-)
+ * transform-origin: x-axis y-axis z-axis|initial|inherit;
+ */
+/* Chrome 36.0 (12.0 -webkit-), IE 11.0, Mozilla 16.0 (10.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 23.0 (15.0 -webkit-)
+ * transform-style: flat|preserve-3d|initial|inherit;
+ */
+/* Chrome 36.0 (12.0 -webkit-), IE 10.0, Mozilla 16.0 (10.0 -moz-), Safari 9.0 (4.0.3 -webkit-), Opera 23.0 (15.0 -webkit-)
+ * perspective: length|none;
+ */
+/* Chrome 36.0 (12.0 -webkit-), IE 10.0, Mozilla 16.0 (10.0 -moz-), Safari 9.0 (4.0.3 -webkit-), Opera 23.0 (15.0 -webkit-)
+ * perspective-origin: x-axis y-axis|initial|inherit;
+ */
+/* Chrome 36.0 (12.0 -webkit-), IE 10.0, Mozilla 16.0 (10.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 23.0 (15.0 -webkit-)
+ * backface-visibility: visible|hidden|initial|inherit;
+ */
+/* Chrome all, IE 10.0, Firefox all, Safari all, Opera 27.0
+ * user-select: auto|text|none|contain|all
+ */
+/* Chrome 4.0, IE 10.0, Firefox 4.0, Safari 5.0, Opera 15.0
+ */
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0 (10.0 -ms-), Mozilla 28.0 (18.0 -moz-), Safari 9.0 (6.1 -webkit-), Opera 17.0
+ * flex: flex-grow flex-shrink flex-basis|auto|initial|inherit;
+ */
+/* Chrome 29.0 (19.0 -webkit-), IE 11.0 (9.0 expression), Firefox 45.0 -moz-, Safari 9.1, Opera 38.0
+ */
+/* Chrome 8.0 (1.0 -webkit-), Opera -webkit, Safari 4.0 -webkit
+ * mask-image: none|<mask-source>|<image>
+ */
+/* Chrome, IE (color-only), Firefox 48.0, Safari, Opera
+ */
+/* Chrome 4.0, IE 6.0, Firefox 7.0, Safari 3.1, Opera 11.0 (9.0 -o-)
+ * text-overflow: clip|ellipsis|string|initial|inherit;
+ */
+/* Chrome 4.0, Firefox 3.0 (Firefox 25.0 OSX), Safari 5.0, Opera 15.0 -webkit-
+ */
+/* Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design.
+ * Safari 8.1 -webkit-, Firefox 11.0, Windows Phone 7 -ms-
+ * text-size-adjust: none|auto|percentage
+ */
+/*
+ * Utility
+ */
+.ng-chat-wrapper {
+  max-width: 600px;
+  padding-top: 15px;
+  padding-bottom: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #383838;
+  font-weight: normal;
+  line-height: 18px;
+}
+.ng-chat-wrapper a {
+  color: #868686;
+  text-decoration: none;
+}
+.ng-chat-wrapper a:hover,
+.ng-chat-wrapper a.active {
+  color: #ababab;
+}
+.ng-chat-wrapper input,
+.ng-chat-wrapper textarea,
+.ng-chat-wrapper button {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #383838;
+}
+.ng-chat-wrapper input[type="text"],
+.ng-chat-wrapper input[type="number"],
+.ng-chat-wrapper textarea {
+  width: 100%;
+  outline: none;
+  padding: 4px 8px;
+}
+.ng-chat-wrapper textarea {
+  max-width: 100%;
+}
+.ng-chat-wrapper .red {
+  color: #ff3333;
+}
+.ng-chat-wrapper .ng-chat-history {
+  min-height: 300px;
+  height: 400px;
+  overflow: auto;
+  /*.background-gradient-horizontal(#f8fbff, #cce5ff);*/
+  background: #eff7ff;
+  background: -moz-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #eff7ff), color-stop(51%, #f6fbff), color-stop(100%, #eff7ff));
+  background: -webkit-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+  background: -o-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+  background: -ms-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+  background: linear-gradient(to right, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eff7ff', endColorstr='#eff7ff', GradientType=1);
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-item {
+  padding: 10px;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-item:hover {
+  -webkit-box-shadow: inset 0px 0px 1px #9a9a9a;
+  -moz-box-shadow: inset 0px 0px 1px #9a9a9a;
+  box-shadow: inset 0px 0px 1px #9a9a9a;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details {
+  position: relative;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-author {
+  color: #0000ff;
+  border-bottom: 1px dashed #e80404;
+  cursor: pointer;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-author.self {
+  color: #a3a3a3;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-author.online {
+  border-bottom: none;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-author.toggle {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  /*padding: 2px 4px;*/
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-date {
+  color: #696969;
+  font-size: 14px;
+  margin-left: 5px;
+  filter: alpha(opacity=40);
+  -webkit-opacity: 0.4;
+  -khtml-opacity: 0.4;
+  -moz-opacity: 0.4;
+  -o-opacity: 0.4;
+  opacity: 0.4;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-messageid {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #6596c7;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-user-actions,
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-admin-actions {
+  font-size: 13px;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-user-actions a,
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-admin-actions a {
+  outline: none;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-user-actions {
+  margin-left: 5px;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-user-actions > a {
+  letter-spacing: 2px;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message-details .ng-chat-admin-actions > a {
+  letter-spacing: 1px;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-message {
+  padding-top: 5px;
+  font-size: 17px;
+}
+.ng-chat-wrapper .ng-chat-history .ng-chat-editor {
+  margin-top: 5px;
+}
+.ng-chat-wrapper .ng-chat-resizer {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  cursor: s-resize;
+  background: transparent;
+}
+.ng-chat-wrapper .ng-chat-resizer .ng-chat-line {
+  position: absolute;
+  top: 5px;
+  z-index: 1;
+  width: 100%;
+  height: 1px;
+  background: #a9a9a9;
+}
+.ng-chat-wrapper .ng-chat-reply textarea {
+  min-height: 150px;
+}
+.ng-chat-wrapper .ng-chat-reply button {
+  border: none;
+  padding: 6px 32px;
+  background: #3083ff;
+  color: #fefefe;
+  cursor: pointer;
+}
+.ng-chat-wrapper .ng-chat-reply button[disabled] {
+  background: #afcfff !important;
+  cursor: default;
+}
+.ng-chat-wrapper .ng-chat-reply .ng-chat-send {
+  margin-top: 5px;
+  text-align: right;
+}
+.ng-chat-wrapper .ng-chat-reply .ng-chat-toolbar {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  line-height: 30px;
+}
+.ng-chat-wrapper .ng-chat-reply .ng-chat-toolbar .ng-chat-message-len {
+  margin-left: 5px;
+}
+.ng-chat-wrapper .ng-chat-reply .ng-chat-smilies img {
+  cursor: pointer;
+}

@@ -1,0 +1,197 @@
+@import "lessophy";
+
+@ngChatFontFamily: Arial, Helvetica, sans-serif;
+@ngChatFontSize: 16px;
+@ngChatFontColor: #383838;
+
+.ng-chat-wrapper {
+	max-width: 600px;
+	padding-top: 15px;
+	padding-bottom: 30px;
+	font-family: @ngChatFontFamily;
+	font-size: @ngChatFontSize;
+	color: @ngChatFontColor;
+	font-weight: normal;
+	line-height: 18px;
+	
+	a {
+		color: #868686;
+		text-decoration: none;
+		
+		&:hover, &.active {
+			color: #ababab;
+		}
+	}
+	
+	input,
+	textarea,
+	button {
+		font-family: @ngChatFontFamily;
+		font-size: @ngChatFontSize;
+		color: @ngChatFontColor;
+	}
+	
+	input[type="text"],
+	input[type="number"],
+	textarea {
+		width: 100%;
+		outline: none;
+		padding: 4px 8px;
+	}
+	
+	textarea {
+		max-width: 100%;
+	}
+	
+	.red {
+		color: #ff3333;
+	}
+
+	.ng-chat-history {
+		min-height: 300px;
+		height: 400px;
+		overflow: auto;
+		/*.background-gradient-horizontal(#f8fbff, #cce5ff);*/
+		background: #eff7ff;
+		background: -moz-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+		background: -webkit-gradient(left top, right top, color-stop(0%, #eff7ff), color-stop(51%, #f6fbff), color-stop(100%, #eff7ff));
+		background: -webkit-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+		background: -o-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+		background: -ms-linear-gradient(left, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+		background: linear-gradient(to right, #eff7ff 0%, #f6fbff 51%, #eff7ff 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eff7ff', endColorstr='#eff7ff', GradientType=1 );
+		
+		.ng-chat-item {
+			padding: 10px;
+			
+			&:hover {
+				.box-shadow(inset 0px 0px 1px #9a9a9a);
+			}
+		}
+		
+		.ng-chat-message-details {
+			position: relative;
+			
+			.ng-chat-author {
+				color: #0000ff;
+				border-bottom: 1px dashed #e80404;
+				cursor: pointer;
+				
+				&.self {
+					color: #a3a3a3;
+				}
+				
+				&.online {
+					border-bottom: none;
+				}
+				
+				&.toggle {
+					.border-radius(2px);
+					/*padding: 2px 4px;*/
+				}
+			}
+			
+			.ng-chat-date {
+				color: #696969;
+				font-size: 14px;
+				margin-left: 5px;
+				.opacity(0.4);
+			}
+			
+			.ng-chat-messageid {
+				margin-left: 5px;
+				font-size: 14px;
+				color: #6596c7;
+			}
+			
+			.ng-chat-user-actions,
+			.ng-chat-admin-actions {
+				font-size: 13px;
+				
+				a {
+					outline: none;
+				}
+			}
+			
+			.ng-chat-user-actions {
+				margin-left: 5px;
+				
+				> a {
+					letter-spacing: 2px;
+				}
+			}
+			
+			.ng-chat-admin-actions {
+				> a {
+					letter-spacing: 1px;
+				}
+			}
+		}
+		
+		.ng-chat-message {
+			padding-top: 5px;
+			font-size: 17px;
+		}
+		
+		.ng-chat-editor {
+			margin-top: 5px;
+		}
+	}
+	
+	.ng-chat-resizer {
+		position: relative;
+		width: 100%;
+		height: 10px;
+		cursor: s-resize;
+		background: transparent;
+		
+		.ng-chat-line {
+			position: absolute;
+			top: 5px;
+			z-index: 1;
+			width: 100%;
+			height: 1px;
+			background: #a9a9a9;
+		}
+	}
+	
+	.ng-chat-reply {
+		textarea {
+			min-height: 150px;
+		}
+		
+		button {
+			border: none;
+			padding: 6px 32px;
+			background: #3083ff;
+			color: #fefefe;
+			cursor: pointer;
+			
+			&[disabled]{
+				background: #afcfff !important;
+				cursor: default;
+			}
+		}
+		
+		.ng-chat-send {
+			margin-top: 5px;
+			text-align: right;
+		}
+		
+		.ng-chat-toolbar {
+			padding-top: 10px;
+			padding-bottom: 5px;
+			line-height: 30px;
+			
+			.ng-chat-message-len {
+				margin-left: 5px;
+			}
+		}
+		
+		.ng-chat-smilies {
+			img {
+				cursor: pointer;
+			}
+		}
+	}
+}
