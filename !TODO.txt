@@ -1,0 +1,6 @@
+FOUND / TEST : User agent and geolocation are both automatically detected (geo location has to be approved in the browser first of course)
+
+ADD SCREENSHOT of chat to the readme(upload to repo)
+
+
+chat channels (like on L2) - filter messages by channel
