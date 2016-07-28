@@ -1,4 +1,4 @@
-NgChat v0.1 - AngularJS REST chat module
+NgChat v0.2 - AngularJS REST chat module
 ===================
 
 This chat module is based on auto and manual **refreshing**.  
@@ -17,9 +17,9 @@ Current version is written with PHP server-side and you could try it almost on a
 ## Dependencies
 
  * AngularJS 1.5.0+ (with ngSanitize module)
- * jQuery 2.2.3+
+ * jQuery 3.0.0+
  * lodash 4.11.1+
- * Bootstrap-Grid-Only 3.2.0 [link](https://github.com/zirafa/bootstrap-grid-only)
+ * Bootstrap-Grid-Only 3.2.0 ([link](https://github.com/zirafa/bootstrap-grid-only))
 
 ## Build (optional)
 
