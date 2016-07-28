@@ -46,12 +46,12 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
  * Add ng-chat styles:  
  ```<link rel="stylesheet" href="css/grid100.min.css" />```  
  ```<link rel="stylesheet" href="ngchat/ng-chat.min.css" />```
- * Add ng-chat module:  
+ * Add ng-chat module script:  
  ```<script type="text/javascript" src="ngchat/ng-chat.min.js"></script>```
  * Inject chat module to your AngularJS application:  
  ```var app = angular.module('app', ['ngChatModule']);```
  * Add directive to your AngularJS page:  
- ```<ng-chat></ng-chat>```  
+ ``` <ng-chat></ng-chat> ```  
   
 #### Using demo files
 
