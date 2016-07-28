@@ -51,8 +51,8 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
  * Inject chat module to your AngularJS application:  
  ```var app = angular.module('app', ['ngChatModule']);```
  * Add directive to your AngularJS page:  
- ```<ng-chat></ng-chat>```
-
+ ```<ng-chat></ng-chat>```  
+  
 #### Using demo files
 
 If you have your own page with angular application:
