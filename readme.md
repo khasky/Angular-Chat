@@ -1,8 +1,7 @@
 NgChat v0.3 - AngularJS chat module
 ===================
 
-This chat module is based on auto and manual **refreshing**.  
-Current version is written with PHP server-side and you could try it almost on any hosting.
+This chat module is based on refreshing. I wrote some server side scripts on PHP for testing and you can try it by yourself.
 
 [Live demo](http://khasky.com/demo/ng-chat)
 
@@ -67,7 +66,7 @@ If AngularJS isn't installed:
 
 ## Configuration
 
-### Server side options - config.php
+### config.php - Server side options
 
 | Variable                     | Default value  | Description                                                  |
 | ---------------------------- | -------------- | ------------------------------------------------------------ |
@@ -76,7 +75,7 @@ If AngularJS isn't installed:
 | $CFG_MAX_HISTORY_MESSAGES    | 50             | [integer] Max. chat messages stored in history               |
 | $CFG_MAX_ONLINE_TIME_MINUTES | 15             | [integer] Max. minutes for detecting if user is still online |
 
-### Client side options - ng-chat.js (ngChatConfig)
+### ng-chat.js (ngChatConfig) - Client side options
 
 | Variable                  | Default value          | Description                            |
 | ------------------------- | ---------------------- | -------------------------------------- |
@@ -93,19 +92,29 @@ If AngularJS isn't installed:
 
 List of data transferred between client and server. You can write your own server scripts following the listed format.
 
-#### send.php (send chat message)
+#### read.php - Read chat history and return JSON array of messages. You can look at [example](https://github.com/khasky/NgChat/blob/master/src/demo/history.json).
 
-| HTTP  | Name     | Description              |
-| ----- | -------- | ------------------------ |
-| POST  | userId   | Unique user identifier  |
-| POST  | user     | User nickname in chat    |
-| POST  | message  | Chat message text        |
+| Field name | Description                                |
+| ---------- | ------------------------------------------ |
+| userId     | [string] Unique user identifier (aka GUID) |
+| user       | [string] User nickname in chat             |
+| messageId  | [integer] Unique message identifier        |
+| message    | [string] Chat message text                 |
+| date       | [string] Formatted date (atom)             |
 
-#### status.php (online users request)
+#### send.php - Send chat message
 
-| HTTP  | Name     | Description              |
-| ----- | -------- | ------------------------ |
-| POST  | userId   | Unique user identifier  |
+| HTTP  | Field name | Description                                |
+| ----- | ---------- | ------------------------------------------ |
+| POST  | userId     | [string] Unique user identifier (aka GUID) |
+| POST  | user       | [string] User nickname in chat             |
+| POST  | message    | [string] Chat message text                 |
+
+#### status.php - Get online users
+
+| HTTP  | Field name | Description                                |
+| ----- | ---------- | ------------------------------------------ |
+| POST  | userId     | [string ]Unique user identifier (aka GUID) |
 
 ## Coming soon
 
