@@ -1,29 +1,28 @@
-NgChat v0.2 - AngularJS REST chat module
+NgChat v0.3 - AngularJS chat module
 ===================
 
 This chat module is based on auto and manual **refreshing**.  
 Current version is written with PHP server-side and you could try it almost on any hosting.
 
+[Live demo](http://khasky.com/demo/ng-chat)
+
+![NgChat](https://github.com/khasky/NgChat/blob/master/screenshot.png)
+
 ## Features
 
 * Easy to install and use
 * Low requirements
-* Adjustable chat history
-* User's online status
+* Users online status
+* Chat history
 * Smiley icon set
-* Admin actions (under development)
-* You can use all the code for any of your own purposes
 
 ## Dependencies
 
- * AngularJS 1.5.0+ (with ngSanitize module)
- * jQuery 3.0.0+
- * lodash 4.11.1+
- * Bootstrap-Grid-Only 3.2.0 ([link](https://github.com/zirafa/bootstrap-grid-only))
+ * AngularJS 1.5.0+ with ngSanitize
 
 ## Build (optional)
 
-If you want to modify and/or rebuild NgChat, you should install [NodeJS](https://nodejs.org) and run **grunt** in commandline.  
+If you want to modify and/or rebuild NgChat, you should install [NodeJS](https://nodejs.org) and run **grunt** in command line.  
 I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Lessophy) for work on CSS styles.
 
 #### Used NodeJS modules
@@ -36,7 +35,7 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
 #### Directories
 
 **src** - ng-chat source files  
-**dist** - complete build of grunt project for production
+**dist** - complete build, ready for production
 
 ## Installation
 
@@ -44,10 +43,9 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
 
  * Add dependencies (see above)
  * Add ng-chat styles:  
- ```<link rel="stylesheet" href="css/grid100.min.css" />```  
- ```<link rel="stylesheet" href="ngchat/ng-chat.min.css" />```
+ ```<link rel="stylesheet" href="ngchat/ngchat.min.css" />```
  * Add ng-chat module script:  
- ```<script type="text/javascript" src="ngchat/ng-chat.min.js"></script>```
+ ```<script type="text/javascript" src="ngchat/ngchat.min.js"></script>```
  * Inject chat module to your AngularJS application:  
  ```var app = angular.module('app', ['ngChatModule']);```
  * Add directive to your AngularJS page:  
@@ -55,93 +53,65 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
   
 #### Using demo files
 
-If you have your own page with angular application:
+If you have your own page with installed AngularJS:
 
  * Open **dist** directory
- * Copy **css**, **js**, **ngchat** folders to your hosting
- * Check **index.html** and **app.js** and copy dependencies and includes to your page
-
-And if you have not:
+ * Copy **ngchat** folder and contents to your hosting
+ * Check **index.html** and **app.js** as example
+ 
+If AngularJS isn't installed:  
 
  * Open **dist** directory
  * Copy all files to your hosting
+ * Open index.html in your browser
 
 ## Configuration
 
-### config.php (server-side options)
+### Server side options - config.php
 
-| Variable                  | Default value  | Description                                                  |
-| ------------------------- | -------------- | ------------------------------------------------------------ |
-| $CFG_CHAT_FILE_PATH       | history.json   | (string) Chat history file name                              |
-| $CFG_STATUS_FILE_PATH     | status.json    | (string) Online status file name                             |
-| $CFG_MAX_HISTORY_MESSAGES | 50             | (integer) Max. chat messages in history                      |
-| $CFG_MAX_ONLINE_TIME      | 15             | (integer) Max. minutes for detecting if user is still online |
-| $CFG_ADMIN_USER_IDS       |                | (string array) List of Admin users' IDs                      |
+| Variable                     | Default value  | Description                                                  |
+| ---------------------------- | -------------- | ------------------------------------------------------------ |
+| $CFG_CHAT_FILE_PATH          | history.json   | [string] Chat history file name                              |
+| $CFG_STATUS_FILE_PATH        | status.json    | [string] Online status file name                             |
+| $CFG_MAX_HISTORY_MESSAGES    | 50             | [integer] Max. chat messages stored in history               |
+| $CFG_MAX_ONLINE_TIME_MINUTES | 15             | [integer] Max. minutes for detecting if user is still online |
 
-### ng-chat.js (client-side options)
+### Client side options - ng-chat.js (ngChatConfig)
 
-| Variable                  | Default value          | Description                                        |
-| ------------------------- | ---------------------- | -------------------------------------------------- |
-| MAX_NAME_LENGTH           | 16                     | (integer) Max. length of nicknames                 |
-| MAX_REPLY_LENGTH          | 255                    | (integer) Max. length of chat message              |
-| MIN_REFRESH_TIME          | 5                      | (integer) Min. refresh time in seconds             |
-| MAX_REFRESH_TIME          | 300                    | (integer) Max. refresh time in seconds             |
-| CLASSNAME_RESIZER         | .ng-chat-resizer       | (string) CSS class of resizer element              |
-| CLASSNAME_HISTORY         | .ng-chat-history       | (string) CSS class of history element              |
-| SMILIES_SRC               | ngchat/smilies/        | (string) Path to the folder with smilies           |
-| SMILIES_FORMAT            | .gif                   | (string) Smiley icons extension                    |
-| $scope.smilies            | (look into ng-chat.js) | (array of objects) Smilies [{code, emotion}]       |
-| $scope.dateFormat         | dd.mm.yyyy HH:mm:ss    | (string) Display date format                       |
-
-More options coming soon.
+| Variable                  | Default value          | Description                            |
+| ------------------------- | ---------------------- | -------------------------------------- |
+| maxNameLength             | 16                     | [integer] Max. characters in nickname  |
+| maxReplyLength            | 255                    | [integer] Max. length of chat message  |
+| minRefreshTime            | 5                      | [integer] Min. refresh time in seconds |
+| maxRefreshTime            | 300                    | [integer] Max. refresh time in seconds |
+| smiliesDirectory          | ngchat/smilies/        | [string] Path to smilies folder        |
+| smiliesFormat             | .gif                   | [string] Smiley icons extension        |
+| shortDateFormat           | HH:mm:ss               | [string] Display date format (short)   |
+| shortDateFormat           | dd.mm.yyyy HH:mm:ss    | [string] Display date format (full)    |
 
 ## Data
 
-List of data which passed between client<->server.
+List of data transferred between client and server. You can write your own server scripts following the listed format.
 
-You can write your own server scripts on any language which supports HTTP requests.
-
-#### send.php _(send chat message request)_
+#### send.php (send chat message)
 
 | HTTP  | Name     | Description              |
 | ----- | -------- | ------------------------ |
-| POST  | userId   | Unique user indentifier  |
+| POST  | userId   | Unique user identifier  |
 | POST  | user     | User nickname in chat    |
 | POST  | message  | Chat message text        |
 
-#### status.php _(online users request)_
+#### status.php (online users request)
 
 | HTTP  | Name     | Description              |
 | ----- | -------- | ------------------------ |
-| POST  | userId   | Unique user indentifier  |
+| POST  | userId   | Unique user identifier  |
 
-#### admin.php _(admin command request)_
+## Coming soon
 
-| HTTP  | Name     | Description                      |
-| ----- | -------- | -------------------------------- |
-| POST  | userId   | Unique user indentifier          |
-| POST  | action   | Command to execute               |
-| POST  | args     | Command arguments (object)       |
-
-## Bugs / To do
-
- * Bug: Paste larger message than max. reply length from clipboard to the reply textarea (can't use backspace anymore)
- * Finish admin commands
- * Prevent refresh flooding
-
-## Future improvements
-
- * Ctrl+Enter reply sending
- * Anti-spam: captcha for first message
- * Responsive styles
- * Online users list
- * Toolbar:  
-  - Selected text styling (bold, italic, strikethrough)  
-  - Possibility to insert images  
-  - Possibility to insert links  
-  - Possibility to quote messages  
- * MOTD
- * Admin announcements
- * Chat history archive
- * Users' avatars
- * Chat rooms
+* Admin pages
+* Quotes
+* Toolbar
+* Online users list
+* Chat history archive
+* Responsive design

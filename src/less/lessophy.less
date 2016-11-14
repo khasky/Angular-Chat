@@ -1,4 +1,4 @@
-/* Lessophy by Khasky (c) 2016
+/* https://github.com/khasky/Lessophy
  */
 
 /* Web fonts
@@ -7,7 +7,7 @@
 @themePath: "/wp-content/themes/dev";
 @fontsPath: "@{themePath}/fonts";
 
-.font-face (@fontName: sans-serif; @path: @fontsPath; @fontWeight: normal; @fontStyle: normal){
+.font-face (@fontName: sans-serif; @path: @fontsPath; @fontWeight: normal; @fontStyle: normal) {
     @font-face {
         font-family: @fontName;
         src: url('@{path}/@{fontName}.eot');
@@ -18,6 +18,53 @@
         font-weight: @fontWeight;
         font-style: @fontStyle;
     }
+}
+
+/* Chrome, IE (color-only), Firefox 48.0, Safari, Opera
+ */
+.text-gradient (@from: #4d9de0, @to: #3dcd8d) {
+	color: @to;
+	background: -webkit-linear-gradient(left top, @from, @to);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* Chrome 4.0, IE 6.0, Firefox 7.0, Safari 3.1, Opera 11.0 (9.0 -o-)
+ * text-overflow: clip|ellipsis|string|initial|inherit;
+ */
+.text-overflow (@value: clip) {
+	-o-text-overflow: @value;
+	text-overflow: @value;
+}
+
+.text-overflow-ellipsis () {
+	white-space: nowrap;
+	overflow: hidden;
+	.text-overflow(ellipsis);
+}
+
+/* Chrome 4.0, Firefox 3.0 (Firefox 25.0 OSX), Safari 5.0, Opera 15.0 -webkit-
+ */
+.text-antialias (@enabled) when (@enabled = true) {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+.text-antialias (@enabled) when (@enabled = false) {
+	-webkit-font-smoothing: subpixel-antialiased;
+	-moz-osx-font-smoothing: auto;
+	text-rendering: auto;
+}
+
+/* Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design.
+ * Safari 8.1 -webkit-, Firefox 11.0, Windows Phone 7 -ms-
+ * text-size-adjust: none|auto|percentage
+ */
+.text-size-adjust (@value: 100%) {
+	-webkit-text-size-adjust: @value;
+	-moz-text-size-adjust: @value;
+	-ms-text-size-adjust: @value;
+	text-size-adjust: @value;
 }
 
 /* Chrome 10.0 (4.0 -webkit-), IE 8.0, Mozilla 29.0 (2.0 -moz-), Safari 5.1 (3.2 -webkit-), Opera 9.5
@@ -56,25 +103,41 @@
 	border-radius: @value;
 }
 
-/* Chrome 5.0 (4.0 -webkit-), IE 9.0, Mozilla 4.0 (3.0 -moz-), Safari 5.0 (3.1 -webkit-), Opera 10.5
- * border-bottom-left-radius: length|% [length|%]|initial|inherit;
- */
-.border-radiuses (@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
-	-webkit-border-top-right-radius: @topright;
-	-webkit-border-bottom-right-radius: @bottomright;
-	-webkit-border-bottom-left-radius: @bottomleft;
-	-webkit-border-top-left-radius: @topleft;
-	-moz-border-radius-topright: @topright;
-	-moz-border-radius-bottomright: @bottomright;
-	-moz-border-radius-bottomleft: @bottomleft;
-	-moz-border-radius-topleft: @topleft;
-	border-top-right-radius: @topright;
-	border-bottom-right-radius: @bottomright;
-	border-bottom-left-radius: @bottomleft;
-	border-top-left-radius: @topleft;
+.border-bottom-left-radius (@value: 0) {
+	-webkit-border-bottom-left-radius: @value;
+	-moz-border-radius-bottomleft: @value;
+	border-bottom-left-radius: @value;
 }
 
-/* Chrome 4.0, IE 9.0 (IE 8.0 filter), Mozilla 2.0, Safari 3.1, Opera 9.0
+.border-bottom-right-radius (@value: 0) {
+	-webkit-border-bottom-right-radius: @value;
+	-moz-border-radius-bottomright: @value;
+	border-bottom-right-radius: @value;
+}
+
+.border-top-left-radius (@value: 0) {
+	-webkit-border-top-left-radius: @value;
+	-moz-border-top-left-radius: @value;
+	border-top-left-radius: @value;
+}
+
+.border-top-right-radius (@value: 0) {
+	-webkit-border-top-right-radius: @value;
+	-moz-border-top-right-radius: @value;
+	border-top-right-radius: @value;
+}
+
+/* Chrome 16.0 (4.0 -webkit-), IE 11.0, Mozilla 15.0 (3.5 -moz-), Safari 6.0 (3.1 -webkit-), Opera 15.0 (11.0 -o-)
+ * border-image: source slice width outset repeat|initial|inherit;
+ */
+.border-image (@value: ~"none 100% 1 0 stretch") {
+	-webkit-border-image: @value;
+	-moz-border-image: @value;
+	-o-border-image: @value;
+	border-image: @value;
+}
+
+/* Chrome 4.0, IE 9.0 (IE 8.0 using filter), Mozilla 2.0, Safari 3.1, Opera 9.0
  * opacity: number|initial|inherit;
  */
 .opacity (@opacity: 1) {
@@ -267,20 +330,60 @@
 	transform: scale(@value);
 }
 
-.transform-skew (@deg: 0) {
-	-webkit-transform: skew(@deg);
-	-moz-transform: skew(@deg);
-	-ms-transform: skew(@deg);
-	-o-transform: skew(@deg);
-	transform: skew(@deg);
+.transform-scaleX (@value: 1) {
+	-webkit-transform: scaleX(@value);
+	-moz-transform: scaleX(@value);
+	-ms-transform: scaleX(@value);
+	-o-transform: scaleX(@value);
+	transform: scaleX(@value);
 }
 
-.transform-skewXY (@degX: 0, @degY: 0) {
+.transform-scaleY (@value: 1) {
+	-webkit-transform: scaleY(@value);
+	-moz-transform: scaleY(@value);
+	-ms-transform: scaleY(@value);
+	-o-transform: scaleY(@value);
+	transform: scaleY(@value);
+}
+
+.transform-scaleZ (@value: 1) {
+	-webkit-transform: scaleZ(@value);
+	-moz-transform: scaleZ(@value);
+	-ms-transform: scaleZ(@value);
+	-o-transform: scaleZ(@value);
+	transform: scaleZ(@value);
+}
+
+.transform-scale3d (@sX: 1, @sY: 1, @sZ: 1) {
+	-webkit-transform: scale3d(@sX, @sY, @sZ);
+	-moz-transform: scale3d(@sX, @sY, @sZ);
+	-ms-transform: scale3d(@sX, @sY, @sZ);
+	-o-transform: scale3d(@sX, @sY, @sZ);
+	transform: scale3d(@sX, @sY, @sZ);
+}
+
+.transform-skew (@degX: 0, @degY: 0) {
 	-webkit-transform: skew(@degX, @degY);
 	-moz-transform: skew(@degX, @degY);
 	-ms-transform: skew(@degX, @degY);
 	-o-transform: skew(@degX, @degY);
 	transform: skew(@degX, @degY);
+}
+
+.transform-skewX (@deg: 0) {
+	-webkit-transform: skewX(@deg);
+	-moz-transform: skewX(@deg);
+	-ms-transform: skewX(@deg);
+	-o-transform: skewX(@deg);
+	transform: skewX(@deg);
+}
+
+.transform-skewY (@deg: 0) {
+	-webkit-transform: skewY(@deg);
+	-moz-transform: skewY(@deg);
+	-ms-transform: skewY(@deg);
+	-o-transform: skewY(@deg);
+	transform: skewY(@deg);
 }
 
 .transform-rotate (@deg: 0) {
@@ -307,12 +410,44 @@
 	transform: rotateY(@deg);
 }
 
+.transform-rotateZ (@deg: 0) {
+	-webkit-transform: rotateZ(@deg);
+	-moz-transform: rotateZ(@deg);
+	-ms-transform: rotateZ(@deg);
+	-o-transform: rotateZ(@deg);
+	transform: rotateZ(@deg);
+}
+
+.transform-rotate3d (@x: 0, @y: 0, @z: 0, @deg: 0) {
+	-webkit-transform: rotate3d(@x, @y, @z, @deg);
+	-moz-transform: rotate3d(@x, @y, @z, @deg);
+	-ms-transform: rotate3d(@x, @y, @z, @deg);
+	-o-transform: rotate3d(@x, @y, @z, @deg);
+	transform: rotate3d(@x, @y, @z, @deg);
+}
+
 .translate (@x: 0, @y: 0) {
 	-webkit-transform: translate(@x, @y);
 	-moz-transform: translate(@x, @y);
 	-ms-transform: translate(@x, @y);
 	-o-transform: translate(@x, @y);
 	transform: translate(@x, @y);
+}
+
+.translateX (@x: 0) {
+	-webkit-transform: translateX(@x);
+	-moz-transform: translateX(@x);
+	-ms-transform: translateX(@x);
+	-o-transform: translateX(@x);
+	transform: translateX(@x);
+}
+
+.translateY (@y: 0) {
+	-webkit-transform: translateY(@y);
+	-moz-transform: translateY(@y);
+	-ms-transform: translateY(@y);
+	-o-transform: translateY(@y);
+	transform: translateY(@y);
 }
 
 .translateZ (@z: 0) {
@@ -350,12 +485,12 @@
 /* Chrome 36.0 (4.0 -webkit-), IE 10.0 (9.0 -ms-), Mozilla 16.0 (3.5 -moz-), Safari 9.0 (3.2 -webkit-), Opera 23.0 (15.0 -webkit- 10.5 -o-)
  * transform-origin: x-axis y-axis z-axis|initial|inherit;
  */
-.transform-origin (@x: 50%, @y: 50%) {
-	-webkit-transform-origin: @x @y;
-	-moz-transform-origin: @x @y;
-	-ms-transform-origin: @x @y;
-	-o-transform-origin: @x @y;
-	transform-origin: @x @y;
+.transform-origin (@x: 50%, @y: 50%, @z: 0) {
+	-webkit-transform-origin: @x @y @z;
+	-moz-transform-origin: @x @y @z;
+	-ms-transform-origin: @x @y @z;
+	-o-transform-origin: @x @y @z;
+	transform-origin: @x @y @z;
 }
 
 /* Chrome 36.0 (12.0 -webkit-), IE 11.0, Mozilla 16.0 (10.0 -moz-), Safari 9.0 (4.0 -webkit-), Opera 23.0 (15.0 -webkit-)
@@ -394,25 +529,25 @@
 	backface-visibility: @value;
 }
 
-.background-gradient-horizontal (@fallback: #333333, @from: #3b5fc3, @to: rgba(37,37,37,0)) {
+.background-gradient-horizontal (@fallback: #333333, @from: #3b5fc3, @to: rgba(37,37,37,0), @start: 0%, @end: 100%) {
 	background: @fallback;
-	background: -moz-linear-gradient(left, @from 0%, @to 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, @from), color-stop(100%, @to));
-	background: -webkit-linear-gradient(left, @from 0%, @to 100%);
-	background: -o-linear-gradient(left, @from 0%, @to 100%);
-	background: -ms-linear-gradient(left, @from 0%, @to 100%);
-	background: linear-gradient(to right, @from 0%, @to 100%);
+	background: -moz-linear-gradient(left, @from @start, @to @end);
+	background: -webkit-gradient(left top, right top, color-stop(@start, @from), color-stop(@end, @to));
+	background: -webkit-linear-gradient(left, @from @start, @to @end);
+	background: -o-linear-gradient(left, @from @start, @to @end);
+	background: -ms-linear-gradient(left, @from @start, @to @end);
+	background: linear-gradient(to right, @from @start, @to @end);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to', GradientType=1);
 }
 
-.background-gradient-vertical (@fallback: #333333, @from: #3b5fc3, @to: rgba(59,95,195,0.5)) {
+.background-gradient-vertical (@fallback: #333333, @from: #3b5fc3, @to: rgba(59,95,195,0.5), @start: 0%, @end: 100%) {
 	background: @fallback;
-	background: -moz-linear-gradient(top, @from 0%, @to 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, @from), color-stop(100%, @to));
-	background: -webkit-linear-gradient(top, @from 0%, @to 100%);
-	background: -o-linear-gradient(top, @from 0%, @to 100%);
-	background: -ms-linear-gradient(top, @from 0%, @to 100%);
-	background: linear-gradient(to bottom, @from 0%, @to 100%);
+	background: -moz-linear-gradient(top, @from @start, @to @end);
+	background: -webkit-gradient(left top, left bottom, color-stop(@start, @from), color-stop(@end, @to));
+	background: -webkit-linear-gradient(top, @from @start, @to @end);
+	background: -o-linear-gradient(top, @from @start, @to @end);
+	background: -ms-linear-gradient(top, @from @start, @to @end);
+	background: linear-gradient(to bottom, @from @start, @to @end);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to', GradientType=0);
 }
 
@@ -420,7 +555,9 @@
  * user-select: auto|text|none|contain|all
  */
 .user-select (@value: all) {
+	-webkit-touch-callout: @value;
 	-webkit-user-select: @value;
+	-khtml-user-select: @value;
 	-moz-user-select: @value;
 	-ms-user-select: @value;
 	user-select: @value;
@@ -428,25 +565,29 @@
 
 /* Chrome 4.0, IE 10.0, Firefox 4.0, Safari 5.0, Opera 15.0
  */
-.placeholder-font (@color, @fontSize, @fontWeight) {
+.placeholder-font (@fontColor: #111111, @fontSize: 16px, @fontName: sans-serif, @fontWeight: normal) {
 	&::-webkit-input-placeholder {
-		color: @color;
+		color: @fontColor;
+		font-family: @fontName;
 		font-size: @fontSize;
 		font-weight: @fontWeight;
 	}
 	&:-moz-placeholder {
-		color: @color;
+		color: @fontColor;
+		font-family: @fontName;
 		font-size: @fontSize;
 		font-weight: @fontWeight;
 	}
 	&::-moz-placeholder {
-		color: @color;
+		color: @fontColor;
+		font-family: @fontName;
 		font-size: @fontSize;
 		font-weight: @fontWeight;
 		opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
 	}
 	&:-ms-input-placeholder {
-		color: @color;
+		color: @fontColor;
+		font-family: @fontName;
 		font-size: @fontSize;
 		font-weight: @fontWeight;
 	}
@@ -462,76 +603,237 @@
 	flex: @value;
 }
 
-.flex-width (@width: 100%) {
-	-webkit-flex: 1 1 @width;
-	-moz-flex: 1 1 @width;
-	-ms-flex: 1 1 @width;
-	flex: 1 1 @width;
-	max-width: @width;
-	max-height: 100%;
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0 (10.0 -ms-), Mozilla 28.0 (18.0 -moz-), Safari 9.0 (6.1 -webkit-), Opera 12.1
+ * flex-wrap: nowrap|wrap|wrap-reverse|initial|inherit;
+ */
+.flex-wrap (@value: wrap) {
+	-webkit-flex-wrap: @value;
+	-ms-flex-wrap: @value;
+	flex-wrap: @value;
+}
+
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0 (10.0 -ms-), Mozilla 28.0 (18.0 -moz-), Safari 9.0 (6.1 -webkit-), Opera 17.0
+ * justify-content: flex-start|flex-end|center|space-between|space-around|initial|inherit;
+ */
+.flex-justify (@value: flex-start) {
+	-webkit-justify-content: @value;
+	-moz-justify-content: @value;
+	.ms-flex-justify(@value);
+	justify-content: @value;
+}
+.ms-flex-justify (@value) when (@value = space-between) {
+	-ms-flex-pack: justify;
+}
+.ms-flex-justify (@value) when (@value = space-around) {
+	-ms-flex-pack: distribute;
+}
+.ms-flex-justify (@value) when (@value = flex-end) {
+	-ms-flex-pack: end;
+}
+.ms-flex-justify (@value) when (@value = flex-start) {
+	-ms-flex-pack: start;
+}
+.ms-flex-justify (@value) when (@value = center) {
+	-ms-flex-pack: center;
+}
+
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0 (10.0 -ms-), Mozilla 28.0 (18.0 -moz-), Safari 9.0 (6.1 -webkit-), Opera 17.0
+ * flex-direction: row|row-reverse|column|column-reverse|initial|inherit;
+ */
+.flex-direction (@value: row) {
+	-webkit-flex-direction: @value;
+	-ms-flex-direction: @value;
+	flex-direction: @value;
+}
+
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0 (10.0 -ms-), Mozilla 28.0 (18.0 -moz-), Safari 9.0 (6.1 -webkit-), Opera 17.0
+ * order: number|initial|inherit;
+ */
+.flex-order (@value: 0) {
+	-webkit-order: @value;
+	-ms-flex-order: @value;
+	order: @order;
+}
+
+/* Chrome 21.0, IE 11.0, Mozilla 20.0, Safari 9.0 (7.0 -webkit-), Opera 12.1
+ * align-items: stretch|center|flex-start|flex-end|baseline|initial|inherit;
+ */
+.flex-align-items (@value: stretch) {
+	-webkit-align-items: @value;
+	-ms-flex-align: @value;
+	align-items: @value;   
+}
+
+/* Chrome 21.0, IE 11.0, Mozilla 20.0, Safari 9.0 (7.0 -webkit-), Opera 12.1
+ * align-self: auto|stretch|center|flex-start|flex-end|baseline|initial|inherit;
+ */
+.flex-align-self (@value: auto) {
+	-webkit-align-self: @value;
+	.ms-flex-align-self(@value);
+	align-self: @value;
+}
+.ms-flex-align-self (@value) when (@value = flex-end) {
+	-ms-flex-item-align: end;
+}
+.ms-flex-align-self (@value) when (@value = flex-start) {
+	-ms-flex-item-align: start;
+}
+.ms-flex-align-self (@value) when (@value = auto), (@value = center), (@value = baseline), (@value = stretch) {
+	-ms-flex-item-align: @value;
+}
+
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0, Mozilla 28.0, Safari 9.0 (6.1 -webkit-), Opera 12.1
+ * flex-grow: number|initial|inherit;
+ */
+.flex-grow (@value: 0) {
+	-webkit-flex-grow: @value;
+	-ms-flex-grow: @value;
+	flex-grow: @value;
+}
+
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0, Mozilla 28.0, Safari 9.0 (8.0 -webkit-), Opera 12.1
+ * flex-shrink: number|initial|inherit;
+ */
+.flex-shrink (@value: 1) {
+	-webkit-flex-shrink: @value;
+	-ms-flex-shrink: @value;
+	flex-shrink: @value;
+}
+
+/* Chrome 29.0 (21.0 -webkit-), IE 11.0, Mozilla 22.0, Safari 9.0 (7.0 -webkit-), Opera 12.1
+ * flex-basis: number|auto|initial|inherit;
+ */
+.flex-basis (@value: auto) {
+	-webkit-flex-basis: @value;
+	-ms-flex-basis: @value;
+	flex-basis: @value;
 }
 
 /* Chrome 29.0 (19.0 -webkit-), IE 11.0 (9.0 expression), Firefox 45.0 -moz-, Safari 9.1, Opera 38.0
  */
-.calc-width (@fallbackWidth: 100px, @calc: ~"50% - 100px") {
+.calc-width (@fallbackWidth: 100px, @value: ~"100% - 50px") {
 	width: @fallbackWidth;
-	width: -webkit-calc(@calc);
-	width: expression(@calc);
-	width: -moz-calc(@calc);
-	width: -o-calc(@calc);
-	width: calc(@calc);
+	width: -webkit-calc(@value);
+	width: -moz-calc(@value);
+	width: -o-calc(@value);
+	width: expression(@value);
+	width: calc(@value);
 }
 
-/* Chrome 8.0 (1.0 -webkit-), Opera -webkit, Safari 4.0 -webkit
- * mask-image: none|<mask-source>|<image>
+/* Chrome 29.0 (19.0 -webkit-), IE 11.0 (9.0 expression), Firefox 45.0 -moz-, Safari 9.1, Opera 38.0
  */
-.mask-image (@src) {
-	-webkit-mask-image: url('@{src}');
-	-moz-mask-image: url('@{src}');
-	-o-mask-image: url('@{src}');
-	mask-image: url('@{src}');
+.calc-height (@fallbackHeight: 100px, @value: ~"100% - 50px") {
+	height: @fallbackHeight;
+	height: -webkit-calc(@value);
+	height: -moz-calc(@value);
+	height: -o-calc(@value);
+	height: expression(@value);
+	height: calc(@value);
 }
 
-/* Chrome, IE (color-only), Firefox 48.0, Safari, Opera
+/* Chrome 1.0, IE 7.0 (IE 5.0 expression), Firefox 3.0, Safari 2.0.2, Opera 4.0
  */
-.text-gradient (@from: #4d9de0, @to: #3dcd8d) {
-	color: @to;
-	background: -webkit-linear-gradient(left top, @from, @to);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+.min-height (@value: 0px) {
+	min-height: @value;
+	height: e(%('expression(this.scrollHeight < %d ? "%s" : "auto")', unit(@value) + 1, @value));
 }
 
-/* Chrome 4.0, IE 6.0, Firefox 7.0, Safari 3.1, Opera 11.0 (9.0 -o-)
- * text-overflow: clip|ellipsis|string|initial|inherit;
+.max-height (@value: 0px) {
+	max-height: @value;
+	height: e(%('expression(this.scrollHeight > %d ? "%s" : "auto")', unit(@value) - 1, @value));
+}
+
+.min-width (@value: 0px) {
+	min-width: @value;
+	width: e(%('expression(document.body.clientWidth < %d ? "%s" : "auto")', unit(@value) + 1, @value));
+}
+
+.max-width (@value: 0px) {
+	max-width: @value;
+	width: e(%('expression(document.body.clientWidth > %d ? "%s" : "auto")', unit(@value) - 1, @value));
+}
+
+/* Chrome 18.0 -webkit-, IE 13.0, Firefox 35.0, Safari 9.1 (6.0 -webkit-), Opera 15.0 -webkit-
+ * filter: none | blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia() | url();
  */
-.text-overflow (@value: clip) {
-	-o-text-overflow: @value;
-	text-overflow: @value;
+.filter (@value: none) {
+	-webkit-filter: @value;
+    -moz-filter: @value;
+    -ms-filter: @value;
+	filter: @value;
 }
 
-.text-overflow-ellipsis () {
-	white-space: nowrap;
-	overflow: hidden;
-	.text-overflow(ellipsis);
+.filter-blur (@value: 0px) {
+	.filter(~"blur(@{value})");
 }
 
-/* Chrome 4.0, Firefox 3.0 (Firefox 25.0 OSX), Safari 5.0, Opera 15.0 -webkit-
+.filter-brightness (@value: 1) {
+	.filter(~"brightness(@{value})");
+}
+
+.filter-contrast (@value: 0%) {
+	.filter(~"contrast(@{value})");
+}
+
+.filter-grayscale (@value: 0%) {
+	.filter(~"grayscale(@{value})");
+}
+
+.filter-hue-rotate (@value: 0deg) {
+	.filter(~"hue-rotate(@{value})");
+}
+
+.filter-invert (@value: 0%) {
+	.filter(~"invert(@{value})");
+}
+
+.filter-saturate (@value: 0) {
+	.filter(~"saturate(@{value})");
+}
+
+.filter-sepia (@value: 0%) {
+	.filter(~"sepia(@{value})");
+}
+
+/* <offset-x> <offset-y> [<blur-radius> | <spread-radius> | <color>]
  */
-.text-antialias () {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-rendering: optimizeLegibility;
+.filter-drop-shadow (@value: 16px 16px 10px #000000) {
+	.filter(~"drop-shadow(@{value})");
 }
 
-/* Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design.
- * Safari 8.1 -webkit-, Firefox 11.0, Windows Phone 7 -ms-
- * text-size-adjust: none|auto|percentage
+/* Chrome 2.0, IE 9.0, Firefox 2.0 -moz-, Safari 1.1, Opera 9.5
  */
-.text-size-adjust (@value: 100%) {
-	-webkit-text-size-adjust: @value;
-	-moz-text-size-adjust: @value;
-	-ms-text-size-adjust: @value;
-	text-size-adjust: @value;
+.selection (@backgroundColor: #ffffff, @fontColor: #111111) {
+	&::-webkit-selection {
+		background: @backgroundColor;
+		color: @fontColor;
+	}
+	&::-moz-selection {
+		background: @backgroundColor;
+		color: @fontColor;
+	}
+	&::-ms-selection {
+		background: @backgroundColor;
+		color: @fontColor;
+	}
+	&::-o-selection {
+		background: @backgroundColor;
+		color: @fontColor;
+	}
+	&::selection {
+		background: @backgroundColor;
+		color: @fontColor;
+	}
+}
+
+/* Chrome 13.0 -webkit-, IE 10.0 -ms-, Firefox 43.0 (6.0 -moz-), Safari 5.1 -webkit-
+ * hyphens: none|manual|auto
+ */
+.hyphens (@value: none) {
+	-webkit-hyphens: @value;
+	-moz-hyphens: @value;
+	-ms-hyphens: @value;
+	hyphens: @value;
 }
 
 /*
@@ -548,10 +850,22 @@
 	}
 }
 
-.center-block () {
+.center-block-h () {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.center-block-h-v (@blockWidth: 300px, @blockHeight: 200px) {
+	display: block;
+	width: @blockWidth;
+	height: @blockHeight;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	@heightMargin: -(round(@blockHeight / 2));
+	@widthMargin: -(round(@blockWidth / 2));
+	margin: ~"@{heightMargin}" 0 0 ~"@{widthMargin}";
 }
 
 .inline-block () {
@@ -563,18 +877,40 @@
 }
 
 .flex-block () {
-	display: -webkit-box;
+	display: -webkit-box; /* Safari < 6 */
+	display: -webkit-flexbox; /* Safari 6+ */
 	display: -webkit-flex;
 	display: -moz-box;
-	display: -ms-flexbox;
+	display: -ms-flexbox; /* IE 10 */
 	display: flex;
 }
 
-.img-no-smoothing () {
+.overlay-block (@layer: 1, @background: rgba(0, 0, 0, 0.2)) {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: @layer;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: @background;
+}
+
+.disable-image-smoothing () {
 	image-rendering: optimizeSpeed;
 	image-rendering: -moz-crisp-edges; /* Firefox */
 	image-rendering: -o-crisp-edges; /* Opera */
 	image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
 	image-rendering: optimize-contrast; /* CSS3 proposed */
 	-ms-interpolation-mode: nearest-neighbor; /* IE8+ */
+}
+
+/* Allows changing the style of any element to platform-based interface elements or vice versa
+ */
+.appearence (@value: none) {
+    -webkit-appearance: @value;
+    -moz-appearance: @value;
+	appearance: @value;
 }
