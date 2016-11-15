@@ -1,4 +1,4 @@
-NgChat v0.3 - AngularJS chat module
+NgChat v0.3.1 - AngularJS chat module
 ===================
 
 This chat module is based on refreshing. I wrote some server side scripts on PHP for testing and you can try it by yourself.
@@ -24,7 +24,7 @@ This chat module is based on refreshing. I wrote some server side scripts on PHP
 If you want to modify and/or rebuild NgChat, you should install [NodeJS](https://nodejs.org) and run **grunt** in command line.  
 I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Lessophy) for work on CSS styles.
 
-#### Used NodeJS modules
+#### Required NodeJS modules
 
  * grunt-contrib-clean
  * grunt-contrib-copy
@@ -48,12 +48,12 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
  ```<script type="text/javascript" src="ngchat/ngchat.min.js"></script>```
  * Add ngChatModule to your AngularJS application:  
  ```var app = angular.module('app', ['ngChatModule']);```
- ** Include your AngularJS application:  
+ * Include your AngularJS application:  
  ```<script type="text/javascript" src="app.js"></script>```
  * Add directive to your template:  
  ``` <ng-chat></ng-chat> ```  
 
-If you feel difficulties you can look at demo files as example: **dist/app.js**, **dist/index.html**
+If you feel some difficulties you can look at demo files as example: **dist/app.js**, **dist/index.html**
 
 ## Configuration
 
