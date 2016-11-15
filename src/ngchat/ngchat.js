@@ -83,11 +83,34 @@
 						strPos = txtarea.selectionStart;
 					}
 					
-					var front = (txtarea.value).substring(0, strPos);
-					var back = (txtarea.value).substring(strPos, txtarea.value.length);
+					var len = txtarea.value.length;
 					
-					txtarea.value = front + text + back;
+					var textBeforeCursor = (txtarea.value).substring(0, strPos);
+					var textAfterCursor = (txtarea.value).substring(strPos, len);
+					
+					var reg = /\s/;
+					
+					var spaceBeforeCursor = reg.test((txtarea.value).substring(strPos-1, strPos));
+					var spaceAfterCursor = reg.test((txtarea.value).substring(strPos, strPos+1));
+					
+					if (textBeforeCursor.length && !spaceBeforeCursor)
+						textBeforeCursor += ' ';
+					
+					if (textAfterCursor.length && !spaceAfterCursor)
+						textAfterCursor = ' ' + textAfterCursor;
+					
+					txtarea.value = textBeforeCursor + text + textAfterCursor;
 					strPos = strPos + text.length;
+					
+					if (textBeforeCursor.length && !spaceBeforeCursor)
+						strPos++;
+					
+					if (textAfterCursor.length && !spaceAfterCursor)
+						strPos++;
+					else {
+						txtarea.value += ' ';
+						strPos++;
+					}
 					
 					if (br === "ie") {
 						txtarea.focus();
@@ -237,12 +260,21 @@
 							visible = true;
 							documentBody.append('<div id="ng-chat-tooltip">' + scope.ngChatTooltip + '</div>');
 							tooltipElem = angular.element(document.querySelector('#ng-chat-tooltip'));
-							tooltipElem.css({ top: ($event.pageY + 25) + 'px', left: $event.pageX + 'px' });
+							
+							var tooltipWidth = tooltipElem[0].clientWidth;
+							var tooltipHeight = tooltipElem[0].clientHeight;
+							
+							var offsTop = $event.pageY + Math.round(tooltipHeight);
+							var offsLeft = $event.pageX - Math.round(tooltipWidth / 2);
+							tooltipElem.css({ top: offsTop + 'px', left: offsLeft + 'px' });
+							
+							tooltipElem.addClass('visible');
 						}
 					});
 					
 					elem.on('mouseleave', function () {
-						tooltipElem.remove();
+						if (tooltipElem)
+							tooltipElem.remove();
 						visible = false;
 					});
 				}
@@ -404,7 +436,7 @@
 						$scope.refreshing = true;
 						
 						ngChatService.getHistory().then(function (resp) {
-							console.log('ngChatService.getHistory(): ' + (resp ? resp.length : 0) + ' messages loaded');
+							//console.log('ngChatService.getHistory(): ' + (resp ? resp.length : 0) + ' messages loaded');
 							
 							if ($scope.history.length) {
 								var lastExistId = $scope.history[$scope.history.length - 1].messageId;

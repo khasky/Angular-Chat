@@ -9,14 +9,21 @@
 
 #ng-chat-tooltip {
 	position: absolute;
-	z-index: 65535;
-	padding: 5px;
+	z-index: 2147483647;
+	padding: 0 3px;
+	line-height: 21px;
 	background-color: #fff8c8;
 	border: 1px solid #e8e5d0;
 	.border-radius(2px);
 	font-family: @fontFamilyDefault;
 	font-size: @fontSizeDefault;
 	color: @fontColorDefault;
+	.transition(opacity 0.1s);
+	.opacity(0);
+	
+	&.visible {
+		.opacity(1);
+	}
 }
 
 .ng-chat-wrapper {

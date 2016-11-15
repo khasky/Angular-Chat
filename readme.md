@@ -33,36 +33,27 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
 
 #### Directories
 
-**src** - ng-chat source files  
-**dist** - complete build, ready for production
+**src** - ng-chat source files
+**dist/ngchat** - build of ng-chat module, minified and ready for production
 
 ## Installation
 
-#### From scratch
-
- * Add dependencies (see above)
- * Add ng-chat styles:  
+ * Include AngularJS core:
+ ```<script type="text/javascript" src="libs/angular.min.js"></script>```
+ * Include AngularJS sanitize:
+ ```<script type="text/javascript" src="libs/angular-sanitize.min.js"></script>```
+ * Include ng-chat styles:  
  ```<link rel="stylesheet" href="ngchat/ngchat.min.css" />```
- * Add ng-chat module script:  
+ * Include ng-chat module script:  
  ```<script type="text/javascript" src="ngchat/ngchat.min.js"></script>```
- * Inject chat module to your AngularJS application:  
+ * Add ngChatModule to your AngularJS application:  
  ```var app = angular.module('app', ['ngChatModule']);```
- * Add directive to your AngularJS page:  
+ ** Include your AngularJS application:
+ ```<script type="text/javascript" src="app.js"></script>```
+ * Add directive to your template:  
  ``` <ng-chat></ng-chat> ```  
-  
-#### Using demo files
 
-If you have your own page with installed AngularJS:
-
- * Open **dist** directory
- * Copy **ngchat** folder and contents to your hosting
- * Check **index.html** and **app.js** as example
- 
-If AngularJS isn't installed:  
-
- * Open **dist** directory
- * Copy all files to your hosting
- * Open index.html in your browser
+If you feel difficulties you can look at demo files as example (**dist/app.js**, **dist/index.html**)
 
 ## Configuration
 
@@ -92,7 +83,7 @@ If AngularJS isn't installed:
 
 List of data transferred between client and server. You can write your own server scripts following the listed format.
 
-#### read.php - Read chat history and return JSON array of messages. You can look at [example](https://github.com/khasky/NgChat/blob/master/src/demo/history.json).
+#### read.php - Read chat history and return JSON array of messages. [Example](https://github.com/khasky/NgChat/blob/master/src/demo/history.json).
 
 | Field name | Description                                |
 | ---------- | ------------------------------------------ |
@@ -114,7 +105,7 @@ List of data transferred between client and server. You can write your own serve
 
 | HTTP  | Field name | Description                                |
 | ----- | ---------- | ------------------------------------------ |
-| POST  | userId     | [string ]Unique user identifier (aka GUID) |
+| POST  | userId     | [string] Unique user identifier (aka GUID) |
 
 ## Coming soon
 
