@@ -33,14 +33,14 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
 
 #### Directories
 
-**src** - ng-chat source files
-**dist/ngchat** - build of ng-chat module, minified and ready for production
+**src** - ng-chat source files  
+**dist/ngchat** - build of ng-chat module, minified and ready for production  
 
 ## Installation
 
- * Include AngularJS core:
+ * Include AngularJS core:  
  ```<script type="text/javascript" src="libs/angular.min.js"></script>```
- * Include AngularJS sanitize:
+ * Include AngularJS sanitize:  
  ```<script type="text/javascript" src="libs/angular-sanitize.min.js"></script>```
  * Include ng-chat styles:  
  ```<link rel="stylesheet" href="ngchat/ngchat.min.css" />```
@@ -48,12 +48,12 @@ I've used LESS preprocessor and [Lessophy mixins](https://github.com/khasky/Less
  ```<script type="text/javascript" src="ngchat/ngchat.min.js"></script>```
  * Add ngChatModule to your AngularJS application:  
  ```var app = angular.module('app', ['ngChatModule']);```
- ** Include your AngularJS application:
+ ** Include your AngularJS application:  
  ```<script type="text/javascript" src="app.js"></script>```
  * Add directive to your template:  
  ``` <ng-chat></ng-chat> ```  
 
-If you feel difficulties you can look at demo files as example (**dist/app.js**, **dist/index.html**)
+If you feel difficulties you can look at demo files as example: **dist/app.js**, **dist/index.html**
 
 ## Configuration
 
