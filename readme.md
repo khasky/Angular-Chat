@@ -1,4 +1,4 @@
-NgChat v0.3.1 - AngularJS chat module
+NgChat v0.3.2 - AngularJS chat module
 ===================
 
 This chat module is based on refreshing. I wrote some server side scripts on PHP for testing and you can try it by yourself.
@@ -68,16 +68,19 @@ If you feel some difficulties you can look at demo files as example: **dist/app.
 
 ### ng-chat.js (ngChatConfig) - Client side options
 
-| Variable                  | Default value          | Description                            |
-| ------------------------- | ---------------------- | -------------------------------------- |
-| maxNameLength             | 16                     | [integer] Max. characters in nickname  |
-| maxReplyLength            | 255                    | [integer] Max. length of chat message  |
-| minRefreshTime            | 5                      | [integer] Min. refresh time in seconds |
-| maxRefreshTime            | 300                    | [integer] Max. refresh time in seconds |
-| smiliesDirectory          | ngchat/smilies/        | [string] Path to smilies folder        |
-| smiliesFormat             | .gif                   | [string] Smiley icons extension        |
-| shortDateFormat           | HH:mm:ss               | [string] Display date format (short)   |
-| shortDateFormat           | dd.mm.yyyy HH:mm:ss    | [string] Display date format (full)    |
+| Variable                  | Default value          | Description                                                   |
+| ------------------------- | ---------------------- | ------------------------------------------------------------- |
+| maxNameLength             | 16                     | [integer] Max. characters in nickname                         |
+| maxReplyLength            | 255                    | [integer] Max. length of chat message                         |
+| minAutoRefreshTime        | 5                      | [integer] Min. auto refresh time in seconds                   |
+| maxAutoRefreshTime        | 300                    | [integer] Max. auto refresh time in seconds                   |
+| minManualRefreshTime      | 3                      | [integer] Min. manual refresh time (prevent floods)           |
+| shortDateFormat           | HH:mm:ss               | [string] Display date format (short)                          |
+| shortDateFormat           | dd.mm.yyyy HH:mm:ss    | [string] Display date format (full)                           |
+| smiliesEnabled            | true                   | [boolean] Enable or disable smilies                           |
+| smiliesDirectory          | ngchat/smilies/        | [string] Path to smilies folder                               |
+| smiliesFormat             | .gif                   | [string] Smiley icons extension                               |
+| smiliesList               | -                      | [array of objects] name and supported emotions for each smile |
 
 ## Data
 

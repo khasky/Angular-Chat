@@ -19,7 +19,7 @@
 				return result.join("&");
 			});
 		}])
-		.factory('utilityService', ['$http', '$q', function ($http, $q) {
+		.factory('utilityFactory', function () {
 			return {
 				replaceAll: function (str, search, replace) {
 					return str.split(search).join(replace);
@@ -39,8 +39,8 @@
 					var guid = nav.mimeTypes.length; // example: 7
 					guid += nav.userAgent.replace(/\D+/g, ''); // example: 5061645373654028407153736
 					guid += nav.plugins.length; // example: 5
-					guid += screen.height || ''; // example: 1024
-					guid += screen.width || ''; // example: 1280
+					//guid += screen.height || ''; // example: 1024
+					//guid += screen.width || ''; // example: 1280
 					guid += screen.pixelDepth || ''; // example: 24
 
 					return guid;
@@ -131,8 +131,8 @@
 					angular.element(txtarea).triggerHandler('input'); // fire input value update
 				}
 			};
-		}])
-		.factory('ngChatService', ['$q', '$http', function ($q, $http){
+		})
+		.factory('ngChatFactory', ['$q', '$http', function ($q, $http){
 			return {
 				getHistory: function () {
 					return $http.get('ngchat/server/read.php').then(function(resp){
@@ -165,7 +165,6 @@
 				}
 			};
 		}])
-		
 		.directive('focusOn', ['$timeout', function ($timeout) {
 			return {
 				restrict: 'A',
@@ -227,10 +226,11 @@
 					}
 					
 					elem.bind('mousedown', function ($event) {
-						targetElem = angular.element(document.querySelector(scope.resizeTarget)); //$(scope.resizeTarget);
+						targetElem = angular.element(document.querySelector(scope.resizeTarget));
 						
 						if (targetElem) {
-							startHeight = targetElem[0].offsetHeight; //.height();
+							startHeight = targetElem[0].offsetHeight;
+							
 							pY = $event.pageY;
 							
 							$document.bind('mousemove', mouseMove);
@@ -250,6 +250,19 @@
 					var tooltipElem, documentBody;
 					var visible = false;
 					
+					function updateXY (cursorPos) {
+						if (!tooltipElem)
+							return;
+						
+						var tooltipWidth = tooltipElem[0].clientWidth;
+						var tooltipHeight = tooltipElem[0].clientHeight;
+						
+						var offsTop = cursorPos.Y + Math.round(tooltipHeight);
+						var offsLeft = cursorPos.X - Math.round(tooltipWidth / 2);
+						
+						tooltipElem.css({ top: offsTop + 'px', left: offsLeft + 'px' });
+					}
+					
 					elem.on('mouseenter', function ($event) {
 						if (visible)
 							return;
@@ -258,23 +271,27 @@
 						
 						if (documentBody) {
 							visible = true;
+							
 							documentBody.append('<div id="ng-chat-tooltip">' + scope.ngChatTooltip + '</div>');
+							
 							tooltipElem = angular.element(document.querySelector('#ng-chat-tooltip'));
 							
-							var tooltipWidth = tooltipElem[0].clientWidth;
-							var tooltipHeight = tooltipElem[0].clientHeight;
-							
-							var offsTop = $event.pageY + Math.round(tooltipHeight);
-							var offsLeft = $event.pageX - Math.round(tooltipWidth / 2);
-							tooltipElem.css({ top: offsTop + 'px', left: offsLeft + 'px' });
+							updateXY({ X: $event.pageX, Y: $event.pageY });
 							
 							tooltipElem.addClass('visible');
 						}
 					});
 					
+					elem.on('mousemove', function ($event) {
+						updateXY({ X: $event.pageX, Y: $event.pageY });
+					});
+					
 					elem.on('mouseleave', function () {
 						if (tooltipElem)
 							tooltipElem.remove();
+						
+						tooltipElem = null;
+						
 						visible = false;
 					});
 				}
@@ -284,76 +301,77 @@
 			minNameLength: 4, // not implemented
 			maxNameLength: 16,
 			maxReplyLength: 255,
-			minRefreshTime: 5,
-			maxRefreshTime: 300,
+			minAutoRefreshTime: 5,
+			maxAutoRefreshTime: 300,
+			minManualRefreshTime: 3,
 			shortDateFormat: 'HH:mm:ss',
 			fullDateFormat: 'dd.mm.yyyy HH:mm:ss',
+			smiliesEnabled: true,
 			smiliesDirectory: 'ngchat/smilies/',
-			smiliesFormat: '.gif'
+			smiliesFormat: '.gif',
+			smiliesList: [
+				{ code: 'aa', emotions: ['O:-)','O=)'] },
+				{ code: 'ab', emotions: [':-)',':)','=)'] },
+				{ code: 'ac', emotions: [':-(',':(',';('] },
+				{ code: 'ad', emotions: [';-)',';)'] },
+				{ code: 'ae', emotions: [':-P'] },
+				{ code: 'af', emotions: ['8-)'] },
+				{ code: 'ag', emotions: [':-D'] },
+				{ code: 'ah', emotions: [':-['] },
+				{ code: 'ai', emotions: ['*shock*','=-O'] },
+				{ code: 'aj', emotions: [':-*'] },
+				{ code: 'ak', emotions: [':\'('] },
+				{ code: 'al', emotions: [':-X',':-x'] },
+				{ code: 'am', emotions: ['>:o'] },
+				{ code: 'an', emotions: [':-|'] },
+				{ code: 'ao', emotions: [':-\\',':-/'] },
+				{ code: 'ap', emotions: ['*jokingly*'] },
+				{ code: 'aq', emotions: [']:->', '*devil*'] },
+				{ code: 'ar', emotions: ['[:-}'] },
+				{ code: 'as', emotions: ['*kissed*'] },
+				{ code: 'at', emotions: [':-!'] },
+				{ code: 'au', emotions: ['*tired*'] },
+				{ code: 'av', emotions: ['*stop*'] },
+				{ code: 'aw', emotions: ['*kissing*'] },
+				{ code: 'ax', emotions: ['@}->--'] },
+				{ code: 'ay', emotions: ['*thumbsup*'] },
+				{ code: 'az', emotions: ['*drink*'] },
+				{ code: 'ba', emotions: ['*inlove*'] },
+				{ code: 'bb', emotions: ['@='] },
+				{ code: 'bc', emotions: ['*help*'] },
+				{ code: 'bd', emotions: ['\\m/'] },
+				{ code: 'be', emotions: ['%)'] },
+				{ code: 'bf', emotions: ['*ok*'] },
+				{ code: 'bg', emotions: ['*wassup*','*sup*'] },
+				{ code: 'bh', emotions: ['*sorry*'] },
+				{ code: 'bi', emotions: ['*clapping*'] },
+				{ code: 'bj', emotions: ['*rofl*', '*lol*'] },
+				{ code: 'bk', emotions: ['*pardon*'] },
+				{ code: 'bl', emotions: ['*no*'] },
+				{ code: 'bm', emotions: ['*crazy*'] },
+				{ code: 'bn', emotions: ['*dontknow*'] },
+				{ code: 'bo', emotions: ['*dance*'] },
+				{ code: 'bp', emotions: ['*yahoo*'] },
+				{ code: 'bq', emotions: ['*hi*', '*hello*'] },
+				{ code: 'br', emotions: ['*bye*'] },
+				{ code: 'bs', emotions: ['*yes*'] },
+				{ code: 'bt', emotions: [';D','*acute*'] },
+				{ code: 'bu', emotions: ['*wall*', '*dash*'] },
+				{ code: 'bv', emotions: ['*write*', '*mail*'] },
+				{ code: 'bw', emotions: ['*scratch*'] }
+			]
 		})
 		.directive('ngChat', function () {
 			return {
 				restrict: 'E',
 				templateUrl: 'ngchat/ngchat.html',
 				replace: true,
-				controller: ['$scope', '$document', '$element', '$interval', '$timeout', '$sce', 'ngChatConfig', 'ngChatService', 'utilityService', function ($scope, $document, $element, $interval, $timeout, $sce, ngChatConfig, ngChatService, utilityService) {
-					/*
-					 * Data
+				controller: ['$scope', '$document', '$element', '$interval', '$timeout', '$sce', 'ngChatConfig', 'ngChatFactory', 'utilityFactory', function ($scope, $document, $element, $interval, $timeout, $sce, ngChatConfig, ngChatFactory, utilityFactory) {
+					/* Data
 					 */
 					$scope.shortDate = ngChatConfig.shortDateFormat;
 					$scope.fullDate = ngChatConfig.fullDateFormat;
-					
-					$scope.smilies = [
-						{ code: 'aa', emotions: ['O:-)','O=)'] },
-						{ code: 'ab', emotions: [':-)',':)','=)'] },
-						{ code: 'ac', emotions: [':-(',':(',';('] },
-						{ code: 'ad', emotions: [';-)',';)'] },
-						{ code: 'ae', emotions: [':-P'] },
-						{ code: 'af', emotions: ['8-)'] },
-						{ code: 'ag', emotions: [':-D'] },
-						{ code: 'ah', emotions: [':-['] },
-						{ code: 'ai', emotions: ['*shock*','=-O'] },
-						{ code: 'aj', emotions: [':-*'] },
-						{ code: 'ak', emotions: [':\'('] },
-						{ code: 'al', emotions: [':-X',':-x'] },
-						{ code: 'am', emotions: ['>:o'] },
-						{ code: 'an', emotions: [':-|'] },
-						{ code: 'ao', emotions: [':-\\',':-/'] },
-						{ code: 'ap', emotions: ['*jokingly*'] },
-						{ code: 'aq', emotions: [']:->', '*devil*'] },
-						{ code: 'ar', emotions: ['[:-}'] },
-						{ code: 'as', emotions: ['*kissed*'] },
-						{ code: 'at', emotions: [':-!'] },
-						{ code: 'au', emotions: ['*tired*'] },
-						{ code: 'av', emotions: ['*stop*'] },
-						{ code: 'aw', emotions: ['*kissing*'] },
-						{ code: 'ax', emotions: ['@}->--'] },
-						{ code: 'ay', emotions: ['*thumbsup*'] },
-						{ code: 'az', emotions: ['*drink*'] },
-						{ code: 'ba', emotions: ['*inlove*'] },
-						{ code: 'bb', emotions: ['@='] },
-						{ code: 'bc', emotions: ['*help*'] },
-						{ code: 'bd', emotions: ['\\m/'] },
-						{ code: 'be', emotions: ['%)'] },
-						{ code: 'bf', emotions: ['*ok*'] },
-						{ code: 'bg', emotions: ['*wassup*','*sup*'] },
-						{ code: 'bh', emotions: ['*sorry*'] },
-						{ code: 'bi', emotions: ['*clapping*'] },
-						{ code: 'bj', emotions: ['*rofl*', '*lol*'] },
-						{ code: 'bk', emotions: ['*pardon*'] },
-						{ code: 'bl', emotions: ['*no*'] },
-						{ code: 'bm', emotions: ['*crazy*'] },
-						{ code: 'bn', emotions: ['*dontknow*'] },
-						{ code: 'bo', emotions: ['*dance*'] },
-						{ code: 'bp', emotions: ['*yahoo*'] },
-						{ code: 'bq', emotions: ['*hi*', '*hello*'] },
-						{ code: 'br', emotions: ['*bye*'] },
-						{ code: 'bs', emotions: ['*yes*'] },
-						{ code: 'bt', emotions: [';D','*acute*'] },
-						{ code: 'bu', emotions: ['*wall*', '*dash*'] },
-						{ code: 'bv', emotions: ['*write*', '*mail*'] },
-						{ code: 'bw', emotions: ['*scratch*'] }
-					];
+					$scope.smilies = ngChatConfig.smiliesEnabled ? ngChatConfig.smiliesList : [];
 					
 					$scope.initialized = false;
 					$scope.refreshing = false;
@@ -361,15 +379,17 @@
 					$scope.name = '';
 					$scope.message = '';
 					$scope.history = [];
+					
 					$scope.error = '';
 					var errorTimer;
 					
 					$scope.scrollReset = 0;
 					
-					$scope.refreshTimeMin = ngChatConfig.minRefreshTime;
-					$scope.refreshTime = ngChatConfig.minRefreshTime * 2;
+					$scope.refreshTimeMin = ngChatConfig.minAutoRefreshTime;
+					$scope.refreshTime = ngChatConfig.minAutoRefreshTime;
 					
 					var refreshInt;
+					var lastRefreshTime;
 					
 					var users = [];
 					
@@ -378,12 +398,14 @@
 						smilies: false
 					};
 					
-					/*
-					 * Private functions
+					/* Private
 					 */
 					function insertSmilies (text) {
 						if (!text || !text.length)
-							return;
+							return '';
+						
+						if (!$scope.smilies || !$scope.smilies.length)
+							return text;
 						
 						var sml, emo;
 						
@@ -394,7 +416,7 @@
 								emo = sml.emotions[j];
 								
 								if (text.toLowerCase().indexOf(emo.toLowerCase()) != -1) {
-									text = utilityService.replaceAll(text, emo, '<img src="' + $scope.getSmileUrl(sml.code) + '">');
+									text = utilityFactory.replaceAll(text, emo, '<img src="' + $scope.getSmileUrl(sml.code) + '">');
 								}
 							}
 						}
@@ -416,8 +438,8 @@
 						$scope.scrollReset = num;
 					}
 					
-					function userInfo () {
-						ngChatService.status({
+					function updateStatus () {
+						ngChatFactory.status({
 							userId: $scope.guid()
 						}).then(function (resp) {
 							if (resp && resp.length) {
@@ -427,17 +449,13 @@
 									users.push(resp[i].userId);
 								}
 							}
-						}, function (){
-							// error
 						});
 					}
 					
 					function updateHistory () {
 						$scope.refreshing = true;
 						
-						ngChatService.getHistory().then(function (resp) {
-							//console.log('ngChatService.getHistory(): ' + (resp ? resp.length : 0) + ' messages loaded');
-							
+						ngChatFactory.getHistory().then(function (resp) {
 							if ($scope.history.length) {
 								var lastExistId = $scope.history[$scope.history.length - 1].messageId;
 								var lastNewId = resp[resp.length - 1].messageId;
@@ -449,7 +467,7 @@
 								else if (lastExistId < lastNewId)
 								{
 									var countOfNew = lastNewId - lastExistId;
-									var newMessages = utilityService.takeFromRight(resp, countOfNew);
+									var newMessages = utilityFactory.takeFromRight(resp, countOfNew);
 									
 									for (var i = 0, len = newMessages.length; i < len; i++) {
 										newMessages[i].message = insertSmilies(newMessages[i].message);
@@ -476,8 +494,23 @@
 						if ($scope.refreshing)
 							return;
 						
-						userInfo();
+						if (lastRefreshTime && (new Date() - lastRefreshTime <= ngChatConfig.minManualRefreshTime * 1000)) {
+							return;
+						}
+						
+						lastRefreshTime = new Date();
+						
+						updateStatus();
 						updateHistory();
+					}
+					
+					function updateRefreshInterval () {
+						if (refreshInt)
+							$interval.cancel(refreshInt);
+						
+						refreshInt = $interval(function() {
+							refresh();
+						}, $scope.refreshTime * 1000);
 					}
 					
 					function hideError () {
@@ -501,7 +534,7 @@
 					function sendMessage () {
 						hideError();
 						
-						ngChatService.send({
+						ngChatFactory.send({
 							userId: $scope.guid(),
 							user: $scope.name,
 							message: $scope.message.replace(/\r?\n/g, '<br>')
@@ -513,24 +546,23 @@
 								$scope.message = '';
 							}
 						}, function (){
-							showError('Something went wrong.');
+							showError('Send message error');
 						})['finally'](function (){
 							// be happy
 						});
 					}
 					
-					/* 
-					 * Public functions
+					/* Public
 					 */
 					$scope.guid = function () {
-						return utilityService.guid();
+						return utilityFactory.guid();
 					};
 					
 					$scope.getUserBg = function (obj) {
-						var hash = utilityService.hashCode(obj.userId);
-						var rgb = utilityService.intToHex(hash);
+						var hash = utilityFactory.hashCode(obj.userId);
+						var hex = utilityFactory.intToHex(hash);
 						
-						return '#' + rgb;
+						return '#' + hex;
 					};
 					
 					$scope.isUserOnline = function (userId) {
@@ -551,12 +583,16 @@
 						return $sce.trustAsHtml(str);
 					};
 					
+					$scope.isSmiliesEnabled = function () {
+						return ngChatConfig.smiliesEnabled && $scope.smilies && $scope.smilies.length;
+					};
+					
 					$scope.getSmileUrl = function (code) {
 						return ngChatConfig.smiliesDirectory + code + ngChatConfig.smiliesFormat;
 					};
 					
 					$scope.insertText = function (text) {
-						utilityService.insertTextAt('#chat-message', text);
+						utilityFactory.insertTextAt('#chat-message', text);
 					};
 					
 					$scope.quote = function (userId, userName) {
@@ -564,32 +600,20 @@
 							return;
 						
 						// not implemented
-						
 						//var msg = $scope.message;
 						//$scope.message = '';
 						//$scope.insertText(userName + ', ' + msg);
 					};
 					
-					function updateRefreshInterval () {
-						if (refreshInt)
-							$interval.cancel(refreshInt);
-						
-						refreshInt = $interval(function() {
-							refresh();
-						}, $scope.refreshTime * 1000);
-					}
-					
-					$scope.directRefresh = function (){
+					$scope.directRefresh = function () {
 						refresh();
 					};
 					
-					$scope.clear = function(){
-						if (!$scope.message || !$scope.message.length)
-							return;
+					$scope.clear = function () {
 						$scope.message = '';
 					};
 					
-					$scope.nameKeyPress = function (e) {
+					$scope.nameKeyPressed = function (e) {
 						if ($scope.name.length === ngChatConfig.maxNameLength)
 							e.preventDefault();
 					};
@@ -608,11 +632,10 @@
 							return;
 						
 						sendMessage();
-						userInfo();
+						updateStatus();
 					};
 					
-					/*
-					 * Watchers
+					/* Watchers
 					 */
 					$scope.$watch('name', function (to, from) {
 						if (from == to || !to)
@@ -638,18 +661,18 @@
 					});
 					
 					$scope.refreshBlur = function () {
-						if ($scope.refreshTime >= ngChatConfig.maxRefreshTime)
-							$scope.refreshTime = ngChatConfig.maxRefreshTime;
-						else if ($scope.refreshTime <= ngChatConfig.minRefreshTime)
-							$scope.refreshTime = ngChatConfig.minRefreshTime;
+						if ($scope.refreshTime >= ngChatConfig.maxAutoRefreshTime)
+							$scope.refreshTime = ngChatConfig.maxAutoRefreshTime;
+						else if ($scope.refreshTime <= ngChatConfig.minAutoRefreshTime)
+							$scope.refreshTime = ngChatConfig.minAutoRefreshTime;
 						
 						updateRefreshInterval();
 					};
 					
-					/* Init
+					/* Initialize
 					 */
-					updateRefreshInterval();
 					refresh();
+					updateRefreshInterval();
 				}]
 			};
 		});

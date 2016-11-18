@@ -35,14 +35,14 @@
 			<tbody>
 				<tr>
 					<td class="ng-chat-width-35">
-						<input ng-model="name" ng-keypress="nameKeyPress($event)" type="text" placeholder="Name" ng-chat-tooltip="Name">
+						<input ng-model="name" ng-keypress="nameKeyPressed($event)" type="text" placeholder="Name">
 					</td>
 					<td class="ng-chat-width-10">
 						<input ng-model="refreshTime" ng-blur="refreshBlur()" type="text" placeholder="{{refreshTimeMin}}" ng-chat-tooltip="Refresh delay">
 					</td>
 					<td class="ng-chat-width-20">
-						<a ng-click="directRefresh()" ng-class="{'active': refreshing}" ng-chat-tooltip="Refresh" href="javascript:void(0)">@</a>
-						<a ng-click="options.smilies=!options.smilies" ng-class="{'active': options.smilies}" ng-chat-tooltip="Smiles" href="javascript:void(0)">:-)</a>
+						<a ng-click="directRefresh()" ng-class="{'active': refreshing}" ng-chat-tooltip="Manual refresh" href="javascript:void(0)">@</a>
+						<a ng-if="isSmiliesEnabled()" ng-click="options.smilies=!options.smilies" ng-class="{'active': options.smilies}" ng-chat-tooltip="Smiles" href="javascript:void(0)">:-)</a>
 						<a ng-click="options.detailed=!options.detailed" class="ng-chat-info-btn" ng-class="{'active': options.detailed}" ng-chat-tooltip="Detailed info" href="javascript:void(0)">[i]</a>
 						<span class="ng-chat-message-len" ng-class="{'ng-chat-message-len-max': message.length >= 255}" ng-show="message.length > 0" ng-chat-tooltip="Message length">{{message.length}}</span>
 					</td>
@@ -53,7 +53,7 @@
 			</tbody>
 		</table>
 		
-		<div ng-if="smilies && smilies.length" ng-show="options.smilies" class="ng-chat-smilies">
+		<div ng-if="isSmiliesEnabled()" ng-show="options.smilies" class="ng-chat-smilies">
 			<img ng-repeat="s in smilies" ng-src="{{getSmileUrl(s.code)}}" ng-click="insertText(s.emotions[0])" ng-chat-tooltip="{{s.emotions[0]}}" />
 		</div>
 		
