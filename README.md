@@ -1,7 +1,8 @@
-Angular Chat v0.3.2 - AngularJS chat module
+AngularJS Chat - AngularJS chat module based on refreshing
 ===================
 
-This AngularJS chat module is based on refreshing. I wrote some server side scripts on PHP for testing and you can try it by yourself.
+This chat module requires a server-side for process and store incoming data from chat users.  
+I have made very easy PHP scripts for server-side and it works from a box on PHP-compatible hosting.
 
 [Live demo](http://khasky.com/demo/ng-chat)
 
@@ -61,8 +62,8 @@ If you feel some difficulties you can look at demo files as example: **dist/app.
 
 | Variable                     | Default value  | Description                                                  |
 | ---------------------------- | -------------- | ------------------------------------------------------------ |
-| $CFG_CHAT_FILE_PATH          | history.json   | [string] Chat history file name                              |
-| $CFG_STATUS_FILE_PATH        | status.json    | [string] Online status file name                             |
+| $CFG_CHAT_FILE_PATH          | history.json   | [string] Chat history file path                              |
+| $CFG_STATUS_FILE_PATH        | status.json    | [string] Online status file path                             |
 | $CFG_MAX_HISTORY_MESSAGES    | 50             | [integer] Max. chat messages stored in history               |
 | $CFG_MAX_ONLINE_TIME_MINUTES | 15             | [integer] Max. minutes for detecting if user is still online |
 
@@ -79,8 +80,8 @@ If you feel some difficulties you can look at demo files as example: **dist/app.
 | shortDateFormat           | dd.mm.yyyy HH:mm:ss    | [string] Display date format (full)                           |
 | smiliesEnabled            | true                   | [boolean] Enable or disable smilies                           |
 | smiliesDirectory          | ngchat/smilies/        | [string] Path to smilies folder                               |
-| smiliesFormat             | .gif                   | [string] Smiley icons extension                               |
-| smiliesList               | -                      | [array of objects] name and supported emotions for each smile |
+| smiliesFormat             | .gif                   | [string] Smiley icons extension (it can be only one for now)  |
+| smiliesList               | []                     | [array of objects] name and supported emotions for each smile |
 
 ## Data
 
@@ -90,7 +91,7 @@ List of data transferred between client and server. You can write your own serve
 
 | Field name | Description                                |
 | ---------- | ------------------------------------------ |
-| userId     | [string] Unique user identifier (aka GUID) |
+| userId     | [string] Unique user identifier            |
 | user       | [string] User nickname in chat             |
 | messageId  | [integer] Unique message identifier        |
 | message    | [string] Chat message text                 |
@@ -100,7 +101,7 @@ List of data transferred between client and server. You can write your own serve
 
 | HTTP  | Field name | Description                                |
 | ----- | ---------- | ------------------------------------------ |
-| POST  | userId     | [string] Unique user identifier (aka GUID) |
+| POST  | userId     | [string] Unique user identifier            |
 | POST  | user       | [string] User nickname in chat             |
 | POST  | message    | [string] Chat message text                 |
 
@@ -108,4 +109,4 @@ List of data transferred between client and server. You can write your own serve
 
 | HTTP  | Field name | Description                                |
 | ----- | ---------- | ------------------------------------------ |
-| POST  | userId     | [string] Unique user identifier (aka GUID) |
+| POST  | userId     | [string] Unique user identifier            |
